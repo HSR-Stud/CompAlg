@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Thu Jan 10 11:25:04 CET 2013
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=CompAlg.tex
+outputFile=CompAlg.pdf
+langSpell=de
+markDer=true
+srcDir=
