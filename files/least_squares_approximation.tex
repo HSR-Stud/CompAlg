@@ -6,11 +6,11 @@ angibt (Residuen). Die Datenpunkte werden bei dieser Methode nicht mehr genau ge
 \begin{minipage}[c]{12.5cm}
 	\begin{tabular}{ll}
 		Zu minimierende Fehlerfunktion:
-		&$\boxed{\underbrace{S}_{Fehler}=\sum\limits_{i=0}^{N}{\big(\underbrace{g(x_i)}_{Modell}-y_i\big)^2}\qquad \text{minimal $L^2$}}$\\
+		&$\boxed{\underbrace{S}_{Fehler}=\sum\limits_{i=0}^{N}{\big(y_i - \underbrace{\sum\limits_{j=0}^{m}{a_j g_j}}_{Modell}\big)^2} = \sum\limits_{i=0}^{N}{ r_i^2}}$\\
 		Modellfunktion: 
 		&$\boxed{y=\sum\limits_{j=0}^{m}{a_j g_j}}\overset{Poly!}{=}\sum\limits_{j=0}^{m}{a_j x^j}$\\
 		Abweichungen (Residuen): 
-		&$r_i=y_i-\sum\limits_{j=0}^{m}{a_j g_j}-y_i$
+		&$r_i=y_i-\sum\limits_{j=0}^{m}{a_j g_j}$
 	\end{tabular}
 	
 	\subsubsection{Normalgleichung}
@@ -115,11 +115,12 @@ $$\overset{\hspace{0.6cm} P_0 \hspace{0.5cm} P_1 \hspace{0.6cm} P_2}{\bm{G} = \b
 \end{bmatrix}
 $$
 
+\newpage
 \subsubsection{Chebyshev Orthogonale Polynome}
 \textbf{Idee}: Approximation eines kontinierlichen Polynoms durch Chebyshev-Polynome.
 
 \textbf{Definition}\\
-Chebyshev Polynome sind definiert als $T_n(x) = \cos(n \arccos(x))\;(n = 0,1,\ldots)$. Dieses 
+Chebyshev Polynome sind definiert als $T_n(x) = \cos(n \arccos(x))\;(n = 0,1,\ldots)$ und $-1 \leq x \leq 1$. Dieses 
 Polynom bewirkt eine Häufung der Messwerte in den Randbereichen. Die
 ersten paar Polynome $T_n$ sowie deren Umformungen nach $x$:\\
 \begin{tabular}{ll}
@@ -136,9 +137,9 @@ mit Initialbedingungen $T_1(x)=x,\;T_0(x)=1$ berechnet werden.\\
 
 \textbf{Eigenschaften: }
 \begin{itemize}
-  \item Die maximale Amplitude des Chebyshev-Polynoms ist $\frac{1}{2^n}$.
-  \item $T_n(x) \in [-1,+1]$
-  \item $T_n(x)=0 \Leftrightarrow x=\cos(\frac{2i+1}{2n}\pi)\qquad i=0,1,\ldots,n-1$
+  \item Die maximale Amplitude des Chebyshev-Polynoms ist $\frac{1}{2^n}$ (max Amplitude des Fehlerterms).
+  \item Amplitude: $T_n(x) \in [-1,+1]$
+  \item Nullstellen: $T_n(x)=0 \Leftrightarrow x=\cos(\frac{2i+1}{2n}\pi)\qquad i=0,1,\ldots,n-1$ (Diese Nullstellen sind die Chebyshev-Knoten)
   \item $T_n(x)= \pm 1 \Leftrightarrow x=\cos(\frac{i\pi}{n}) \; (i=0,1,\ldots,n)$
 \end{itemize}
 
@@ -201,12 +202,45 @@ $$G^t G \underbrace{=}_{\text{When Chebyshev}}
   0   & 0 & \ldots & \frac{N+1}{2}\\
 \end{bmatrix}_{m \times m}$$
 
+\subsubsection{Kontinuierliche Least-Squares}
+Für kontinuierliche Funktionen, die \textbf{keine Polynome} sind (!) kann auch die kontinuierliche Version
+verwendet werden.\\
+S: zu minimierende Fehlerfunktion, w: Gewicht mit  ($-1\leq x \leq1$)
+\[
+	S = \int\limits_{-1}^1 (y(x) - p(x))^2 \cdot w(x) \cdot \mathrm{d}x
+\]
 
 \textbf{Kontinuierliche Least-Squares Chebyshev Approximation}\\
-Für kontinuierliche Funktionen, die \textbf{keine Polynome} sind (!) kann auch die kontinuierliche Version
-verwendet werden. Dabei wird das Gewicht besonders auf den Rand gelegt (wie bei Chebyshev üblich).
-$$\sum_{j=0}^m a_j T_j(x) \quad \text{wobei} \quad
+ Das Gewicht wird besonders auf den Rand gelegt (wie bei Chebyshev üblich). ($w(x) = \frac{1}{\sqrt{1-x^2}}$)
+$$p(x) = \sum_{j=0}^m a_j T_j(x) \quad \text{wobei} \quad
 a_j = \begin{cases}
   \frac{1}{\pi} \int_{-1}^1 \frac{y(x)}{\sqrt{1-x^2}} dx & j = 0\\
   \frac{2}{\pi} \int_{-1}^1 \frac{y(x) T_j(x)}{\sqrt{1-x^2}} dx & j > 0 
 \end{cases}$$
+
+\textbf{Kontinuierliche Least-Squares Legendre Approximtion:}\\
+Hier bei wird das Gewicht $w(t) = 1$ gesetzt.\\
+
+Legendre Polynome:
+\[
+	P_n(x) = \frac{1}{2^n n!} \cdot \frac{\mathrm{d}^n}{\mathrm{d}x^n}(x^2-1)^2 \qquad \qquad P_0(x) = 1 \qquad P_1(x) = x \qquad P_2(x) = \frac{1}{2}(3x^2-1)
+\]
+\[
+	  P_3(x) = \frac{1}{2}(5x^3 - 3x) \qquad P_4(x) = \frac{1}{8}(35x^4-30x^2+3) \qquad P_5(x) = \frac{1}{8}(63x^5-70x^3+15x)
+\]
+
+Koeffizenten:
+$$
+	p(x) = \sum_{j=0}^m a_j T_j(x) \quad \text{wobei} \quad
+	a_j = \frac{2j+1}{2} \cdot \int\limits_{-1}^{1}y(x) P_j(x) \cdot \mathrm{d}x \qquad (j=0,1,...,m)
+$$
+
+\subsection{Multi-Variate Lineare Least Squares Approximation}
+Multi-Variate Least Square Probleme werden genau gleich wie die Uni-Variaten Least Square Probleme gelöst (selbe Methoden)! Die Variable $x$ ist keine Zahl mehr, sondern ein Vector mit $d$ Dimensionen!
+
+\textbf{Basisgewinnung:}
+Die Basen werden mittel Tensorenprodukt aus Uni-Variaten Basen berechenet (Alle mit allen Multiplizieren (d-Basen in d-Variabeln)).
+
+\[
+	\sum\limits_{j_1=0}^{m_1} \sum\limits_{j_2=0}^{m_2} ... \sum\limits_{j_d=0}^{m_d} a_{j_1,j_2,...,j_d} \cdot g_{j_1}(x^{(1)}) g_{j_2}(x^{(2)}) \cdot \cdot ... \cdot g_{j_d}(x^{(d)})
+\]

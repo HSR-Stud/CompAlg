@@ -12,7 +12,7 @@ Die Idee der Spline-Interpolation ist, die Daten nicht mit einem Polynom hohen G
 \begin{liste}
   \item[\textbf{+}] Kein Runge-Phänomen (Schwingungen am Rand)
   \item[\textbf{+}] Polynome haben tiefen Grad
-  \item[\textbf{+}] Aufwand zur Berechnung geringer als Newton $O(n)$ statt $O(n^2)$  
+  \item[\textbf{+}] Aufwand zur Berechnung geringer als Newton [Spline: $O(n)$ (wegen Tridiagonaler Band-Matrix), Newton: $O(n^2)$]  
   \item[$\mathbf{-}$] "`Nicht eingebettet"' (neue Messungen bedeutet, neue Polynomberechnung!)
   \item[$\mathbf{-}$] Polynome müssen zur Auswertung zusammengesetzt werden (Post-Processing Aufwand gross)
 \end{liste}
@@ -21,7 +21,7 @@ Die Idee der Spline-Interpolation ist, die Daten nicht mit einem Polynom hohen G
 \subsection{Ein-Dimensionale Splines}
 \subsubsection{Prinzip}
 Pro \em Patch \em (von total $n$) wird ein Polynom vom Grad $d$ (meist kubisch, $d=3$) berechnet. An den Übergängen 
-bei $x_i$ können Bedingungen $C^k$ ($k=1,\ldots d-1$) definiert werden.
+bei $x_i$ können Bedingungen $C^k$ ($k=1,\ldots, d-1$) definiert werden.
 
 \paragraph{Freiheitsgrade}
 $n$ Patches mit je 1 Polynom mit je $(d+1)$ Koeffizienten, gibt total $n(d+1)$ Freiheitsgrade.
@@ -38,34 +38,35 @@ die 1. Ableitungen vorgegeben.
 
 
 \subsubsection{Allgemeines Vorgehen (kubische Splines)}
-Die endgültige Interpolation hat diese Form:
-$$\boxed{S_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3}.$$
-Gebraucht wird auch $h_i = x_{i+1} - x_i = \Delta x_i$ 
+Die endgültige Interpolation hat folgende Form (Beschreibung \textbf{eines} Patches):
+$$\boxed{S_i(x) = a_i + b_i(x-x_i) + c_i(x-x_i)^2 + d_i(x-x_i)^3}$$
+$$S_i' = b_i + 2c_i(x-x_i)+3d_i(x-x_i)^2$$
+$$S_i'' = 2c_i + 6 d_i (x-x_i)$$
+Gebraucht wird auch (Patch-Breite) $h_i = x_{i+1} - x_i = \Delta x_i$ 
 \begin{enumerate}
   \item $a_i = y_i \qquad (i=0,\ldots n-1)$
-  \item Für kubische Splines hat es $d-1=3-1=2$ Zusatzbedingungen.
+  \item Für kubische Splines hat es $d-1=3-1=2$ Zusatzbedingungen.\\ \includegraphics[width=12cm]{./bilder/1d_spline_gleichungssystem}
+\newpage
     \begin{itemize}
-      \item Natural Splining:
-      $y_0''=0=y_n''$
+      \item Natural Splining (Randkrümmung): $y_0''=0=y_n''$ (minimiert das Energiemass! ($\min \int |f''(x)|^2 \mathrm{d}x$))
         \begin{enumerate}
           \item $c_0 = c_n = 0$
           \item Gleichungssystem nach $c_i$ auflösen:\\
             \includegraphics[width=13cm]{./bilder/1d_spline_natural_gleichungssystem}
-          \item $d_{n-1} = -\frac{c_{n-1}}{3h_{n-1}}$
-        \end{enumerate}
-        
+          %\item $d_{n-1} = -\frac{c_{n-1}}{3h_{n-1}}$
+        \end{enumerate}        
        \item Clamped Splining:
          \begin{enumerate}
            \item $b_0 = y_0'; b_n=y_n'$
            \item Gleichungssystem nach $c_i$ auflösen:\\
-             \includegraphics[width=12cm]{./bilder/1d_spline_gleichungssystem}
-           \item $d_{n-1} = \frac{y_n' - b_{n-1} - 2c_{n-1}h_{n-1}}{3h_{n-1}^2}$ (am Schluss zu berechnen)
+             \includegraphics[width=12cm]{./bilder/ClampedSplining}
+           %\item $d_{n-1} = \frac{y_n' - b_{n-1} - 2c_{n-1}h_{n-1}}{3h_{n-1}^2}$ (am Schluss zu berechnen)
          \end{enumerate}
     \end{itemize}
   \item $b_{i-1} = \frac{a_i - a_{i-1}}{h_{i-1}} - \frac{2 c_{i-1} + c_i}{3} h_{i-1} \qquad (i=1, \ldots n-1)$
   \item $b_{n-1} = \frac{y_n - a_{n-1}}{h_{n-1}} - c_{n-1} h_{n-1} - d_{n-1}h_{n-1}^2=\frac{y_n-y_{n-1}}{h_{n-1}}-\frac 23 c_{n-1}h_{n-1}$
   \item $d_{i-1} = \frac{c_i - c_{i-1}}{3 h_{i-1}} \qquad (i=1, \ldots n-1)$
-  \item Bei clamped splining: $d_{n-1} = \frac{y_n' - b_{n-1} - 2c_{n-1}h_{n-1}}{3h_{n-1}^2}$
+  \item Clamped splining: $d_{n-1} = \frac{y_n' - b_{n-1} - 2c_{n-1}h_{n-1}}{3h_{n-1}^2}$ \hspace{1cm} Natural Splining: $d_{n-1} = -\frac{c_{n-1}}{3h_{n-1}}$
 \end{enumerate}
 
 \subsubsection{Fehlerabschätzung}
@@ -75,16 +76,16 @@ $| y(x) - S(x) | \leq \max |y^{(4)}(x)| \frac{5}{384} H^4 \qquad
  | y''(x) - S''(x) | \leq \max |y^{(4)}(x)| \frac{3}{8} H^2$
  
  
-
+\newpage
 \subsection{Bernstein-Bézier Splines (B-B Splines)}
 
 \begin{minipage}[c]{15.0cm}	
 	\subsubsection{Bernstein-Polynome}
-	  	Bereich $[0,1]$:\\
+	  	Bereich $t \in [0,1]$ (i: Nr., n: Ordnung des Splines):\\
 	  	
 	    $B_{i,n}(t) = \binom{n}{i}(1-t)^{n-i} t^i \qquad t \in [0,1]\; i=0,1,\ldots, n$\\
 	    
-	    Bereich $[a,b]$:\\
+	    Bereich $t \in [a,b]$:\\
 	    
 	    $B_{i,n}(u,a,b) =\frac{1}{(b-a)^n}\binom{n}{i}(b-u)^{n-i} (u-a)^i \qquad u \in [a,b]\; i=0,1,\ldots, n$
 	\paragraph{Eigenschaften}
@@ -99,7 +100,7 @@ $| y(x) - S(x) | \leq \max |y^{(4)}(x)| \frac{5}{384} H^4 \qquad
 	    \end{itemize}
 	    
 	    $\frac{d}{dt} B_{i,n}(t) = n(B_{i-1,n-1}(t) - B_{i,n-1}(t)) = -n \Delta B_{i-1,n-1}(t)$\\
-	    $\frac{d^2}{dt^2} B_{i,n}(t) = n(n-1)(B_{i-2,n-2}(t) -2 B_{i-1,n-2}(t) + B_{i,n-2}(t)) = -n(n-1) \Delta^2 B_{i-2,n-2}(t)$\\
+	    $\frac{d^2}{dt^2} B_{i,n}(t) = n(n-1)(B_{i-2,n-2}(t) -2 B_{i-1,n-2}(t) + B_{i,n-2}(t)) = n(n-1) \Delta^2 B_{i-2,n-2}(t)$\\
 	    $\frac{d^k}{dt^k} B_{i,n}(t) = (-1)^k n(n-1)\ldots(n-k+1) \Delta^k B_{i-k,n-k}(t)$
 \end{minipage}
 \hfill    

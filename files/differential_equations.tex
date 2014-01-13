@@ -52,7 +52,7 @@
       Wenn $p > 1$ wird eine bessere Approximation erreicht. Allerdings steigt hier der rechnerische
       Aufwand enorm. Siehe Section \ref{sec:ode_explicit_methods} für Berechnung.
       
-      
+ \newpage     
     \skriptsubsubsection{Explizite Runge-Kutta (RK) Methoden}{8}
       Es werden $s$ rekursive Stages $k$ definiert, welche zusammenaddiert die Taylor-Approximation ergeben.
       Hier ist $s=4$
@@ -77,11 +77,6 @@
         Explicit Midpoint & 2 & $a=0$, $b=1$, $m=\frac12$ ($n=p=c=d=0$)\\
         Klassische Runge-Kutta & 4 & $m=n=\frac12$, $p=1$, $a=d=\frac16$, $b=c=\frac13$
       \end{tabular}
-      
-      \vfill
-      
-      \newpage
-      
     
     \skriptsubsubsection{Generelles Framework für Runge-Kutta Methoden (Butcher Tableaus)}{13}
       \begin{minipage}{6cm}
@@ -110,8 +105,7 @@
         Heun Methode (RK-2): $b_1 = b_2 = \frac{1}{2}; c_2=\frac{1}{2}; a_{2,1}=\frac{1}{2}$
       \end{minipage}
       
-      
-      
+\newpage        
     \skriptsubsubsection{Adaptive Explizite Methoden}{17}
       Idee: Automatische Adaptierung der Step-Size $h$. Dies macht eine Definition des maximalen 
       Fehlers der Approximation nötig. Das \em Accuracy Goal \em ($ag$) 
@@ -119,7 +113,7 @@
       das \em Precision Goal \em ($pg$) die Anzahl signifikanter Stellen des Resultats repräsentiert. 
       Der Toleranz-Paramter ist:
       $$\varepsilon = \varepsilon_a+ |y|\varepsilon_r=10^{-ag} + |y| 10^{-pg} \geq |e|.$$
-      
+     
       \subsubsubsection{Eingebettete Paare von expliziten Runge-Kutta Methoden}\\
         \begin{minipage}{5cm}
           \includegraphics[width=4cm]{./bilder/ode_adaptive_butcher.png}
@@ -138,15 +132,16 @@
           
         
         \begin{minipage}{7.5cm}
-          Wenn bei aktuellem Schritt $\frac{\Arrowvert e_n \Arrowvert}{\varepsilon} < 1$, dann war die
+          Wenn bei aktuellem Schritt $\boxed{\frac{\Arrowvert e_n \Arrowvert}{\varepsilon} > 1}$, dann war die
           Schätzung von $h_n$ zu optimistisch und der Schritt muss mit kleinerer Schrittweite wiederholt
-          werden (Reject). 
+          werden (\textbf{Reject}). 
           
-          Ansonsten wird fortgesetzt mit dem Update der Step-Size (Proceed): 
+          Ansonsten $\boxed{\frac{\Arrowvert e_n \Arrowvert}{\varepsilon} \leq 1}$ wird fortgesetzt mit dem Update der Step-Size (\textbf{Proceed}): 
+          
           $$h_{n+1} = h_n \left( \frac{\varepsilon}{\Arrowvert e_n \Arrowvert} \right)^{\frac{1}{\tilde{p}}}= 
           h_n \left( \frac{\Arrowvert e_n \Arrowvert}{\varepsilon} \right)^{-\frac{1}{\tilde{p}}}$$
           $$\varepsilon=\varepsilon_a+\varepsilon_r|y_n|
-           \text{\qquad mit\quad} \tilde{p} = \min(p, \hat{p})+1$$
+           \text{\qquad mit\quad} \tilde{p} = \min(p, \hat{p})+1 \text{ (Ordnung des Primärverfahrens)}$$
         \end{minipage}
         \hspace{0.5cm}
         \begin{minipage}{10.5cm}
