@@ -2,17 +2,23 @@
 \section{Newton Polynomische Interpolation}
 \subsection{Collocation}
 Collocation = Alle Messpunkte werden von angenäherter Funktion (z.B. Polynom) getroffen.
+Das Polynom 
+\[y(x) = p(x) = c_0 + c_1x^1 + c_2x^2 + \ldots + c_mx^m \qquad \text{mit} \quad y(x_k)=p(x_k)=y_k \quad (k=0,1,\ldots,n) \]
+ergibt ein lineares Gleichungssystem von $n+1$ Gleichungen.
+
 
 \subsection{Aitken-Neville Rekursionsformel}
 Sich an den Messpunkten $x_1,\ldots, x_{n-1}$ überlappende polynomiale Interpolationsfunktionen 
 $f_1=p_{0,1,\ldots,n-1}$, $f_2=p_{1,\ldots,n}$ können zusammengefasst werden. 
 
-\begin{minipage}{9.5cm}
+\begin{minipage}{8cm}
 \includegraphics[width=\textwidth]{bilder/aitkenNevilleIdee}
 \end{minipage}
 \hfill
-\begin{minipage}{9.5cm}
-\includegraphics[width=\textwidth]{bilder/aitkenNevilleFormel}
+\begin{minipage}{11cm}
+    \[
+        p(x) = p_{0,1,\ldots,n}(x) = \frac{(x-x_0) \cdot \overbrace{p_{1,2,\ldots,n}}^{\text{green}}(x) - (x-x_n) \cdot \overbrace{p_{0,1,\ldots,n-1}}^{\text{red}}(x)}{(x_n - x_0)}
+    \]
 \end{minipage}
 
 \subsection{Newton Polynome}
@@ -49,6 +55,7 @@ $f_1=p_{0,1,\ldots,n-1}$, $f_2=p_{1,\ldots,n}$ können zusammengefasst werden.
 		\pi_{n+1} &= (x-x_0)(x-x_1)\cdots(x-x_{n-1})(x-x_n) \nonumber
 	\end{align}	
 \end{minipage}
+
 \subsection{Dividierte Differenzen}
 Bemerkung:
 \[
@@ -67,9 +74,7 @@ $k=3$ &$\frac{y(x_1,x_2,x_3)-y(x_0,x_1,x_2)}{(x_3-x_0)}$\\
 
 \textbf{Symmetrie:} $y(x_0,x_1) = y(x_1,x_0) \Longrightarrow y(x_0,x_1,...,x_n)$ ist unabhängig von der Reihenfolge der x-Werte! (Die letze Differenz $a_n$ stimmt überein, die anderen Differenzen weichen ab.)
 
-\newpage
-
-\textbf{Beispiel:}\\
+\paragraph{Beispiel:}~\\
 \begin{minipage}[c]{6.0cm}
 	\begin{tabular}{|c||c|llll|}
 	\hline
@@ -107,10 +112,12 @@ Herleitung: $y = p + \frac{y^{(n+1)}(\xi)}{(n+1)!} \cdot \pi_{n+1} = y(x_0,x_1,.
 Der Fehlerterm kann als Ableitung interpretiert werden. Es ist aber nicht klar wo die Ableitung im Bereich $[x_0,x_n]$ ausgewertet wird, da $\xi$ nicht bekannt ist!
 
 \subsection{Runge Phänomen und Chebyshev Argumente}
-\textbf{Runge Phänomen:} Potenzielle Oszillationen an den Definitionsrändern von Polynom-Collocations.\\
+\textbf{Runge Phänomen:} Potenzielle Oszillationen an den Definitionsrändern von Polynom-Collocations.
+Verursacht durch hohe $n$ und hohe $\frac{y^{(n+1)}(x)}{(n+1)!}$. \\
 \textbf{Chebyshev-Argumente:} Anpassung der Messpunkte durch andere Verteilung (nicht mehr gleichverteilte $x_k$, sondern am Einheitskreis gleichverteilte)
-$x_k = \cos({\frac{2k+1}{2(n+1)}\pi), (k=0,1,\ldots,n)})$
-ergibt maximale Amplitude $\max_{-1\leq x\leq 1}|\pi_{n+1}(x)| = \frac{1}{2^n}$. Mit affiner Formel von Einheitsinterval $[-1,1]$ zu $[a,b]$: $x \rightarrow a+\frac{b-a}{2}(x+1)$
+\[x_k = \cos({\frac{2k+1}{2(n+1)}\pi), \quad (k=0,1,\ldots,n)}) \]
+ergibt maximale Amplitude $\max_{-1\leq x\leq 1}|\pi_{n+1}(x)| = \frac{1}{2^n}$. 
+Mit affiner Transformation von Einheitsintervall $[-1,1]$ zu $[a,b]$: $x \rightarrow a+\frac{b-a}{2}(x+1)$
 \begin{center}
 \includegraphics[width=14cm]{bilder/TschbyNewtonVergleich.png}
 \end{center}
@@ -138,15 +145,17 @@ ergibt maximale Amplitude $\max_{-1\leq x\leq 1}|\pi_{n+1}(x)| = \frac{1}{2^n}$.
 
 $$p(x)=y_0+\frac{\Delta^1 y_0}{h^1 1!}\pi_1(x)+\frac{\Delta^2 y_0}{h^2 2!}\pi_2(x)+\ldots+\frac{\Delta^n y_0}{h^n n!}\pi_n(x)=\sum\limits_{k=0}^{n}{\frac{\Delta^k y_0}{h^k k!}\pi_k(x)}$$
 
-\begin{tabular}{|c|l|l|}
-\hline
-y		& $\Delta^1$	& $\Delta^2$\\
-\hline
-$y_0$	&&\\
-$y_1$	& $y_1-y_0=\Delta^1y_0$&\\
-$y_2$	& $y_2-y_1=\Delta^1y_1$	& $\Delta^1 y_1 - \Delta^1 y_0 = y_2 - 2y_1 +y_0=\Delta^2y_0 \text{(wenn gleichverteilt)}$\\
-\hline
-\end{tabular}
+\begin{center}
+    \begin{tabular}{|l|lccccccccc|}
+        \hline
+        $\Delta^0$ && $y_0$ && $y_1$ && $y_2$ && $y_3$ && $y_4$ \\ \hline
+        $\Delta^1$ &&   & $y_1-y_0$ && $y_2-y_1$ && $y_3-y_2$ && $y_4-y_3$ & \\
+                   &&   & $\Delta y_0$ && $\Delta y_1$ && $\Delta y_2$ && $\Delta y_3$ & \\ \hline
+        $\Delta^2$ && && $\Delta y_1-\Delta y_0$ && $\Delta y_2-\Delta y_1$ && $\Delta y_3-\Delta y_2$ && \\
+                   && && $\Delta^2 y_0$ && $\Delta^2 y_1$ && $\Delta^2 y_2$ && \\ \hline
+    \end{tabular}
+\end{center}
+
 
 \subsection{Taylor Reihe}
 $$f(x)=\underset{\text{Taylor Polynom p(x)}}{\underbrace{y_0+\frac{y'(x_0)}{1!}(x-x_0)+\frac{y''(x_0)}{2!}(x-x_0)^2+\ldots+\frac{y^{(n)}(x_0)}{n!}(x-x_0)^n}}+\underset{\text{Lagrange Fehlerterm}}{\underbrace{\frac{y^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}}}$$

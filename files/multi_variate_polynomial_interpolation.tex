@@ -6,8 +6,7 @@
   & \parbox{12.5cm} {
     \begin{aufzaehlung}
       \item 
-        Die Basis der Polynome kann durch das \em 2-fold tensor product \em berechnet werden, z.B. für 
-        die quadratische Interpolation:\\
+        Die Basis der Polynome kann durch das \emph{2-fold tensor product} berechnet werden $\Rightarrow$ Bilineare Interpolation \\
         $\{1,x,x^2\} \otimes \{1, x, y^2\} = \{1,x,y,x^2,y^2,xy, x^2y, xy^2, x^2y^2\}$; \\
         Dadurch kann man die Anzahl Gleichungen n berechnet werden: \\$\mathbb R^n \otimes \mathbb R^k = \mathbb R^{nk}$
       \item Interpolation der gewünschten Ordnung (linear, quadratisch, \ldots) in X-Richtung an 
@@ -39,3 +38,5 @@ Das ergibt folgende Polynom Basen: $(\{1,x\}\times\{1,y\}=\{1,x,y,xy\})$\\
   $=\frac 1{255} \left((91\cdot 1 +\frac{210-91}{15-14}\cdot 1)\cdot 1 + \frac{162\cdot 1 \frac{95-162}{15-14}\cdot (x-14)-91\cdot 1 + \frac{210-91}{15-14}\cdot(x-14)}{21-20}\cdot(y-20)\right)
   =-215.98 + 15.0549 x + 10.4902 y - 0.7294 x y$
 \end{enumerate}
+
+%TODO: bi-cubic und multivariate
