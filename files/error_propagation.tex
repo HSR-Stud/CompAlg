@@ -10,7 +10,7 @@
   Der \emph{relative} Fehler ist $\frac{\Delta f}{f} \approx \frac{df(x_0)}{f(x_0)}$
   
   Jede $n$-fach ableitbare Funktion kann mit einer \textbf{Taylor}-Reihe approximiert werden:
-  $$f(x_0+h) \approx f(x_0) + h f'(x_0) + \frac{h^2}{2} f''(x_0) + \frac{h^3}{3!} f'''(x_0) + 
+  $$f(x_0+h) = f(x_0) + h f'(x_0) + \frac{h^2}{2} f''(x_0) + \frac{h^3}{3!} f'''(x_0) + 
   \ldots + \frac{h^n}{n!} f^{(n)} + R_n(x_0,h)$$
   Wobei $R_n(x_0,h)$ das Restglied bezeichnet und mit $n \rightarrow \infty$ gegen $0$ mit 
   Geschwindigkeit $o(h^n)$ ("`schnell"') konvergiert. Es gibt bspw. die 
@@ -37,7 +37,7 @@
   Das Vektorfeld der partiellen Ableitungen wird das Gradientenfeld von $f$ genannt und mit $\operatorname{grad}(f)$ oder $\vec{\nabla} f(\vec{x})$ bezeichnet.
   Damit ist $\Delta f \approx \vec{\nabla} f(\vec{x}) \cdot \vec{h}$.
 
-  Im Multi-variaten Fall wird die Taylor-Reihe zu
+  Im Multi-variaten Fall wird die Taylor-Reihe für Multiindizes $\alpha = \{ \alpha_1, \hdots , \alpha_n \}$ und $|\alpha| = \alpha_1 + \hdots + \alpha_n $ zu
   \[
       f(\vec{x}_0+h) = f(\vec{x}_0) + \frac{1}{1!}\vec{\nabla}f(\vec{x}_0) \cdot \vec{h}
        + \sum\limits_{|\alpha|=2}^N \frac{1}{\alpha!}\frac{\partial^{|\alpha|} f(\vec{x}_0)}{\partial x^{\alpha}} \cdot \vec{h}^{\alpha}
@@ -46,9 +46,12 @@
   
   oder vereinfacht für 2. Ordnung
   \[
-      f(\vec{x}_0 + \vec{h}) \approx f(\vec{x}_0) + \vec{h} \nabla f(\vec{x}_0) +
+	  \begin{split}
+      f(\vec{x}_0 + \vec{h}) = & f(\vec{x}_0) + \vec{h} \nabla f(\vec{x}_0) +
       \underbrace{\bigg( \frac{h_1^2}{2!} \frac{\partial^2 f}{\partial x_1^2} + \frac{h_2^2}{2!} \frac{\partial^2 f}{\partial^2 x_2^2}
-      + \frac{h_1 h_2}{1!1!} \frac{\partial^2 f}{\partial x_1 \partial x_2}\bigg)}_{\text{für 2. Ordnung}} + R_2(\vec{x}_0, \vec{h}) \cdot \vec{h}
+      + \frac{h_1 h_2}{1!1!} \frac{\partial^2 f}{\partial x_1 \partial x_2}\bigg)}_{\text{für 2. Ordnung}} + \\
+      & R_{(3,0)}(\vec{x}_0, \vec{h}) \cdot \vec{h}_1^3 + R_{(2,1)}(\vec{x}_0, \vec{h}) \cdot \vec{h}_1^2 \vec{h}_2 + R_{(1,2)}(\vec{x}_0, \vec{h}) \cdot \vec{h}_1 \vec{h}_2^2 + R_{(0,3)}(\vec{x}_0, \vec{h}) \cdot \vec{h}_2^3
+      \end{split}
   \]
   
 \subsection{Jacobi-Matrix}
