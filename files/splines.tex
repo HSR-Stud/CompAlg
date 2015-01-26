@@ -185,11 +185,22 @@ Damit kann ein Punkt auf einer Bézier Kurve als Linearkombination zweier Punkte
       &C^1: && \vec{r}\,'_P(1) = &&\boxed{n(\vec{P}_n-\vec{P}_{n-1}) = m(\vec{Q}_1-\vec{Q_0})} && = \vec{r}\,'_Q(0) \\
       &C^2: && \vec{r}\,''_P(1) = &&\boxed{n(n-1)(\vec{P}_n - 2\vec{P}_{n-1} + \vec{P}_{n-2}) = 
     m(m-1)(\vec{Q}_2 - 2\vec{Q_1} + \vec{Q_0})} && = \vec{r}\,''_Q(0) \\
-      &C^k: && \vec{r}_P^{\,(j)}(1) = && \boxed{n(n-1)\dots(n-j+1)(\Delta^j\vec{P}_{n-j}) = 
-      m(m-1)\dots(m-j+1)(\Delta^j\vec{Q}_0)} &&= \vec{r}_Q^{\,(j)}(0)
+      &C^k: && \vec{r}_P^{\,(k)}(1) = && \boxed{n(n-1)\dots(n-k+1)(\Delta^k\vec{P}_{n-k}) = 
+      m(m-1)\dots(m-k+1)(\Delta^k\vec{Q}_0)} &&= \vec{r}_Q^{\,(k)}(0)
   \end{align*}
   
   $m$ ist dabei der Grad von $\vec{r}_Q$, $n$ derjenige von $\vec{r}_P$.
+
+\subsubsection{Zusammengesetzte (Composite) Bézier Kurven mit $P_{i,j}$}
+  Wird $\vec{r_j}(t) = \sum \limits_{i=0}^{n} \vec{P}_{i,j} B_{i,n}(t) \quad t \in [0,1]$ mit den Fixpunkten $Q_j$ definiert (Grad: $n$), ergeben sich folgende Formeln:
+
+  \begin{align*}
+      &C^0: \qquad && &&\boxed{\vec{P}_{n,j-1} = \vec{P_{0,j}} = \vec{Q_j}} \\
+      &C^1: && \vec{r}\,'_{j-1}(1) = &&\boxed{\vec{Q}_{j}-\vec{P}_{{n-1,j-1}} = \vec{P}_{1,j}-\vec{Q}_j} && = \vec{r}\,'_j(0) \\
+      &C^2: && \vec{r}\,''_{j-1}(1) = &&\boxed{\vec{Q}_{j} - 2\vec{P}_{n-1,j-1} + \vec{P}_{n-2,j-1} = 
+    \vec{P}_{2,j} - 2\vec{P}_{1,j} + \vec{Q_j}} && = \vec{r}\,''_j(0) \\
+      &C^k: && \vec{r}_{j-1}^{\,(k)}(1) = && \boxed{\Delta^k\vec{P}_{n-k,j-1} = \Delta^k\vec{P}_{0,j}} &&= \vec{r}_j^{\,(k)}(0)
+  \end{align*}
   
 \subsubsection{Bézier Oberflächen als Tensor Splines}
 Bézier Oberflächen werden gleich wie Bézier Kurven mittels einem Tensorprodukt aus Bernstein Polynomen gebildet.
