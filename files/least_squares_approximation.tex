@@ -104,15 +104,15 @@ Aus $Ga|=y|$ wird $UDV^T a|=y|$. Dies lässt sich auflösen zu
 \]
 
 \subsubsection{Gleichförmige Argumente\quad (Orthogonalitäts-Eigenschaften)} 
-Mit gleichförmigen Elementen ($x_i - x_j = (j-i) h$ für alle $i,j$) und \textbf{orthogonalen Polynomen} kann 
-$G G^t$ diagonalisiert und so die Gleichungen rechnerisch einfacher gelöst werden. 
+Mit gleichförmigen Elementen $x_i - x_j = (j-i) h$ für alle $i,j$ $\rightarrow$ $\{x_0...x_N\} = \{x_0 + t \cdot h\}_{t=0...N}$ und \textbf{orthogonalen Polynomen} kann 
+$G G^T$ diagonalisiert und so die Gleichungen rechnerisch einfacher gelöst werden. 
 
 $$\boxed{p_{k,N}(t) = \sum_{i=0}^k (-1)^i \binom{k}{i} \binom{k+i}{i} \frac{t^{(i)}}{N^{(i)}}= 
 1+\sum_{i=1}^k (-1)^i \binom{k}{i} \binom{k+i}{i} \frac{t(t-1)(t-2)\ldots(t-i+1)}{N(N-1)(N-2)\ldots(N-i+1)} \qquad (k = 1,\ldots,N)}$$
 mit $t=\frac{x-x_0}{h} \qquad \binom{k}{i}=\frac{k!}{i!(k-i)!}=nCr(k,i)$\\
-$p_{k,N}$ kann jetzt als $g_{k}$ in die Designmatrix eingesetzt werden und das Produkt $G^t G$ wird 
+$p_{k,N}$ kann jetzt als $g_{k}$ in die Designmatrix eingesetzt werden und das Produkt $G^T G$ wird 
 zu einer $(m+1)\times(m+1)$ Diagonalmatrix. Schlussendlich kann $a$ über die bekannte Formel
-$G^t G a = G^t y$ berechnet werden.\\
+$G^T G a = G^T y$ berechnet werden.\\
 
 \textbf{Beispiel:}
 $$\bm{x}=
@@ -210,6 +210,7 @@ mit Initialbedingungen $T_1(x)=x,\;T_0(x)=1$ berechnet werden.\\
   \end{enumerate}
 \end{minipage}
 
+\newpage
 
 Die \textbf{Designmatrix} sieht so aus:
 $$G \underbrace{=}_{\text{When Chebyshev}} 
@@ -220,14 +221,32 @@ $$G \underbrace{=}_{\text{When Chebyshev}}
   T_0(x_N) = 1 & T_1(x_N) =x_N & \ldots & T_m(x_N)\\
 \end{bmatrix}_{N \times m}$$
 
-Damit wird $G^t G$ zu:
-$$G^t G \underbrace{=}_{\text{When Chebyshev}} 
+Damit wird $G^T G$ zu:
+$$G^T G \underbrace{=}_{\text{When Chebyshev}} 
 \begin{bmatrix}
   N+1 & 0 & \ldots & 0 \\
   0   & \frac{N+1}{2} & \ldots & 0\\
   \vdots  & \vdots & \ddots & \vdots\\
   0   & 0 & \ldots & \frac{N+1}{2}\\
 \end{bmatrix}_{m \times m}$$
+
+und $(G^T G)^{-1} G^T$ zu:
+
+$$(G^T G)^{-1} G^T \underbrace{=}_{\text{When Chebyshev}} 
+\begin{bmatrix}
+  \frac{1}{N+1} T_0(x_0) = \frac{1}{N+1} & \frac{1}{N+1} T_0(x_1) = \frac{1}{N+1} & \ldots & \frac{1}{N+1} T_0(x_N) = \frac{1}{N+1} \\
+  \frac{2}{N+1} T_1(x_0) = \frac{2}{N+1} x_0 & \frac{2}{N+1} T_1(x_1) = \frac{2}{N+1} x_1 & \ldots & \frac{2}{N+1} T_1(x_N) = \frac{2}{N+1}x_N\\
+  \vdots & \vdots  & \ddots & \vdots\\
+  \frac{2}{N+1} T_m(x_0) & \frac{2}{N+1} T_m(x_1) & \ldots & \frac{2}{N+1} T_m(x_N)\\
+\end{bmatrix}_{m \times N}$$
+
+\subsubsection{Diskrete Least-Squares Chebyshev Approximation}\\
+Folgt aus $a=(G^T G)^{-1} G^T y$ für $x_i=\cos(\frac{2i+1}{2(N+1)}\pi)\;(i=0,1,\ldots,N)$:
+$$p(x) = \sum_{j=0}^m a_j T_j(x) \quad \text{wobei} \quad
+a_j = \begin{cases}
+  \frac{1}{N+1} \sum_{i=0}^N y(x_i) & j = 0\\
+  \frac{2}{N+1} \sum_{i=0}^N T_j(x_i) y(x_i) & j > 0 
+\end{cases}$$
 
 \subsubsection{Kontinuierliche Least-Squares}
 Für kontinuierliche Funktionen, die \textbf{keine Polynome} sind (!) kann auch die kontinuierliche Version
