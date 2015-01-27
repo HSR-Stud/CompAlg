@@ -2,7 +2,7 @@
 
   \subsection{Definitionen}
     Ordinäre DGL (ODE - ordinary differential equation)
-    $$\boxed{y'(x) = f(x,y) \qquad\text{mit}\qquad y(x_0) = y_0}$$
+    $$\boxed{y'(x) = f(x,y(x)) \qquad\text{mit}\qquad y(x_0) = y_0}$$
     $f(x,y)$ wird auch als r.h.s. Funktion bezeichnet (right hand side).
     
     
@@ -16,7 +16,8 @@
       $$\boxed{y(x_0+h) = y(x_0) + \frac{h}{1!} y'(x_0) + \frac{h^2}{2!}y''(x_0) + \ldots + \frac{h^p}{p!}y^{(p)}(x_0) +\underset{\text{Restterm}}{\underbrace{ \frac{h^{p+1}}{(p+1)!}y^{(p+1)}(\xi)}}}$$
       
       Die Herleitung weiterer Ableitungen erfolgt mithilfe der Kettenregel: 
-      $$\boxed{y''(x) = \frac{\partial f(x,y)}{\partial x} 1 + \frac{\partial f(x,y)}{\partial y}f(x,y)}$$
+      $$\boxed{y''(x) = \frac{\partial f(x,y)}{\partial x} 1 + \frac{\partial f(x,y)}{\partial y}f(x,y) = \frac{\partial y'(x)}{\partial x} 1 + \frac{\partial y'(x)}{\partial y}y'(x)} \quad
+      \boxed{y'''(x) = \frac{\partial y''(x)}{\partial x} 1 + \frac{\partial y''(x)}{\partial y}y'(x)} \quad \hdots$$
       Ableitungen bis zum dritten Grad sind hier aufgelistet (Immenser Rechenaufwand nötig):\\
       %\resizebox{\textwidth}{!}{
       \begin{tabular}{ll}
