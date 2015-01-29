@@ -36,22 +36,35 @@
     
     
     
-    \begin{minipage}{8cm}
+    \begin{minipage}{7cm}
       \subsubsection{Explizite Euler-Methode}
-        Spezialfall der expliziten Methoden: Taylor mit Ordnung $p=1$. Relativ ungenaue Approximation,
-        da hier die Ableitung pro Schritt unverändert bleibt. 
+        Spezialfall der expliziten Methoden: \\
+        \emph{Taylor mit Ordnung $p=1$} \\
+        Relativ ungenaue Approximation,
+        da hier die Ableitung pro Schritt unverändert bleibt.  \\
         
         Globaler Fehler: $\max_{0 \leq i \leq k} |y_i - y(x_i)|$ mit Anzahl Schritten $k$\\
         Lokaler Fehler: $y(x_n+h) - y_{n+1}$ wenn Initialwert des aktuellen Schritts is genau richtig
     \end{minipage}
     \hspace{8mm}
-    \begin{minipage}{11cm}
-      \includegraphics[width=10cm]{./bilder/ode_euler.png}
+    \begin{minipage}{12cm}
+        \begin{align*}
+            y_0 &= y(x_0) \\
+            y(x_0+h) \approx y_1 &= y_0 + f(x_0,y_0) h \approx y(x_0) + y'(x_0)h \\
+            y(x_1+h) \approx y_2 &= y_1 + f(x_1,y_1)h \approx y(x_1) + y'(x_1)h \\
+            & \vdots \\
+            y(x_{n-1}+h) \approx y_n &= y_{n-1} + f(x_{n-1},y_{n-1})h \approx y(x_{n-1}) + y'(x_{n-1})h
+        \end{align*}
     \end{minipage}
       
     \subsubsection{Explizite Taylor-Methoden höherer Ordnung}
       Wenn $p > 1$ wird eine bessere Approximation erreicht. Allerdings steigt hier der rechnerische
       Aufwand enorm. Siehe Section \ref{sec:ode_explicit_methods} für Berechnung.
+      
+      \begin{align*}
+          y_0 &= y(x_0) \\
+          y_{k+1} &= y_k + \frac{y_k'}{1!}h_k + \frac{y_k''}{2!} h_k^2 + \ldots + \frac{y_k^{(p)}}{p!} h_k^p
+      \end{align*}
       
  \newpage     
     \skriptsubsubsection{Explizite Runge-Kutta (RK) Methoden}{8}
