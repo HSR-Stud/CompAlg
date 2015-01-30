@@ -103,6 +103,19 @@ Aus $Ga|=y|$ wird $UDV^T a|=y|$. Dies lässt sich auflösen zu
     a| = V D^{-1}U^T \cdot y|
 \]
 
+\subsubsection{Monomiale} \label{sssec:ls_monomiale}
+Mit 
+$g = a_0 \underbrace{1}_{g_0} + a_1 \underbrace{x}_{g_1} + a_2 \underbrace{x^2}_{g_2} +\ldots + a_m \underbrace{x^m}_{g_2}$ 
+wird die Designmatrix zu:
+\[G \underbrace{=}_{\text{When Monomials}} 
+\begin{bmatrix}
+  1 & x_0 & x_0^2  & \ldots & x_0^m\\
+  1 & x_1 & x_1^2  & \ldots & x_1^m\\
+  \vdots  & \vdots & \vdots  & \ddots & \vdots\\
+  1 & x_N & x_N^2  & \ldots & x_N^m\\
+\end{bmatrix}\]
+
+
 \subsubsection{Gleichförmige Argumente\quad (Orthogonalitäts-Eigenschaften)} \label{sssec:ls_orthogonal}
 Mit gleichförmigen Elementen $x_i - x_j = (j-i) h$ für alle $i,j$ $\rightarrow$ $\{x_0...x_N\} = \{x_0 + t \cdot h\}_{t=0...N}$ und \textbf{orthogonalen Polynomen} kann 
 $G G^T$ diagonalisiert und so die Gleichungen rechnerisch einfacher gelöst werden. 
