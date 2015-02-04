@@ -66,7 +66,7 @@
           y_{k+1} &= y_k + \frac{y_k'}{1!}h_k + \frac{y_k''}{2!} h_k^2 + \ldots + \frac{y_k^{(p)}}{p!} h_k^p
       \end{align*}
       
- \newpage     
+\newpage
     \skriptsubsubsection{Explizite Runge-Kutta (RK) Methoden}{8}
       Es werden $s$ rekursive Stages $k$ definiert, welche zusammenaddiert die Taylor-Approximation ergeben.
       Hier ist $s=4$
@@ -119,7 +119,7 @@
         Heun Methode (RK-2): $b_1 = b_2 = \frac{1}{2}; c_2=\frac{1}{2}; a_{2,1}=\frac{1}{2}$
       \end{minipage}
       
-\newpage        
+\newpage
     \skriptsubsubsection{Adaptive Explizite Methoden}{17}
       Idee: Automatische Adaptierung der Step-Size $h$. Dies macht eine Definition des maximalen 
       Fehlers der Approximation nötig. Das \em Accuracy Goal \em ($ag$) 
@@ -140,6 +140,7 @@
           Das Butcher-Tableau wird dabei um eine Zeile der $b$-Zahlen erweitert.
         \end{minipage}\\
         
+
         Lokaler Fehler:
         $$e_n = y(x+h) - \hat{y}(x+h) = h_n \sum\limits_{j=1}^s (b_j - \hat{b}_j)k_j \Rightarrow 
         \Arrowvert e_n \Arrowvert = \left\Arrowvert h_n \sum\limits_{j=1}^s (b_j - \hat{b}_j)k_j \right\Arrowvert$$
@@ -246,8 +247,10 @@
       \subsubsubsection{Stiffness Detektierung} 
         Voraussetzung: $c_{s-1} = c_s = 1$. Durch Testen von $\left|h \frac{\partial f(x,y)}{\partial y} \right|$ 
         auf die absolute Grenze der Stabilitätsregion kann
-        Stiffness detektiert werden. Stiffness ist nicht erfüllt, wenn $|h \tilde{\lambda}|$ 
-        ausserhalb des Stabilitätsbereich liegt.
+        Stiffness detektiert werden. 
+        Stiffness liegt vor, falls $|h \tilde{\lambda}|$ ausserhalb
+        oder an der Grenze des Stabilitätsbereiches liegt.
+        
         
         Beispiel explizite Runge-Kutta: 
         $$k_{s-1} = f(x+c_{s-1} h, \underbrace{y + h \sum\limits_{j=1}^s a_{s-1,j}k_j}_{g_{s-1}}) \qquad       

@@ -4,7 +4,7 @@ Bedingungen möglich.
 
 Aus der Definition von $y(x)$ ist $yx_0,x_0) = y'(x_0)$. Verallgemeinert ergibt das
 \[y(\underbrace{x_0, \ldots x_n, x_{n+1}}_{(n+2)}) = \frac{y^{(n+1)}(\xi)}{(n+1)!}\]
-\[y(\underbrace{x_0, \ldots x_0}_{(n+1)}) = \lim_{\xi \rightarrow x_0} \frac{y^{(n)}(\xi)}{(n)!} = \frac{y^{(n)}(x_0)}{\hilight{n!}}\]
+\[y(\underbrace{x_0, \ldots x_0}_{(n+1)}) = \lim_{\xi \rightarrow x_0} \frac{y^{(n)}(\xi)}{(n)!} = \frac{y^{(n)}(x_0)}{n!}\]
 
 Für die Hermite Interpolation werden dieselben Newton Tableaus verwendet, aber mit Wiederholungen (siehe Beispiel).
 Die rot markierten Werte werden wie üblich berechnet.
@@ -56,7 +56,10 @@ welche am Schluss ermittelt werden kann.
 \end{minipage}\\
 \renewcommand{\arraystretch}{1.5}
 
-Es werden die \textbf{modifizierten} Newton Polynome verwendet:
+%TODO: achtung hier ist ein newpage
+\newpage
+
+Es werden die \textbf{modifizierten} Newton Polynome verwendet. In diesem Fall:
 
 \begin{center}
     \begin{tabular}{ll}
