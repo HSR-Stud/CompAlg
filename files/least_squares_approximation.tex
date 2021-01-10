@@ -1,6 +1,6 @@
 \section{Least-Squares Approximation}
 \subsection{Lineare Least-Squares}
-Ziel: Approximation von Messpunkten durch Minimieren einer Funktion, die die Abweichung in $y$ 
+Ziel: Approximation von Messpunkten durch Minimieren einer Funktion, die die Abweichung in $y$
 angibt (Residuen). Die Datenpunkte werden bei dieser Methode nicht mehr genau getroffen, ausserdem ist der Grad $m$ des Approximation-Polynoms meist massiv kleiner als die Anzahl der gegebenen Datenpunkte $N+1$.\\
 
 Aus einer Menge von Basisfunktionen ${g_0,g_1,\ldots,g_m}$ mit $m \ll N$ und den Messungen $(x_0,y_0),(x_1,y_1),\ldots,(x_N,y_N)$ wird das überdeterminierte ($m<N$) Gleichungssystem aufgestellt und nach den unbekannten $a_i$ gelöst.
@@ -10,7 +10,7 @@ Aus einer Menge von Basisfunktionen ${g_0,g_1,\ldots,g_m}$ mit $m \ll N$ und den
         g_0(x_0) & g_1(x_0) & \ldots & g_m(x_0) \\
         \vdots & \vdots & \ddots & \vdots \\
         \vdots & \vdots & \ddots & \vdots \\
-        g_0(x_N) & g_1(x_N) & \ldots & g_m(x_N) 
+        g_0(x_N) & g_1(x_N) & \ldots & g_m(x_N)
     \end{pmatrix}}^{\text{Designmatrix } G}
     \cdot
     \begin{pmatrix}
@@ -31,14 +31,14 @@ Aus einer Menge von Basisfunktionen ${g_0,g_1,\ldots,g_m}$ mit $m \ll N$ und den
 	\begin{tabular}{ll}
 		Zu minimierende Fehlerfunktion:
 		&$\boxed{\underbrace{S}_{Fehler}=\sum\limits_{i=0}^{N}{\big(y_i - \underbrace{\sum\limits_{j=0}^{m}{a_j g_j}}_{Modell}\big)^2} = \sum\limits_{i=0}^{N}{ r_i^2}}$\\
-		Modellfunktion: 
+		Modellfunktion:
 		&$\boxed{y=\sum\limits_{j=0}^{m}{a_j g_j}}\overset{Poly!}{=}\sum\limits_{j=0}^{m}{a_j x^j}$\\
-		Abweichungen (Residuen): 
+		Abweichungen (Residuen):
 		&$r_i=y_i-\sum\limits_{j=0}^{m}{a_j g_j}$
 	\end{tabular}
-	
+
 	\subsubsection{Normalgleichung}
-	
+
 	Minimieren des quadratischen Fehlers mit "`Normalmatrix"' G (Designmatrix):
 	$$\underbrace{\bm{G}^T \bm{G}}_{Normalmatrix}\cdot \bm{a} = \bm{G}^T \bm{y} \qquad \Rightarrow \qquad \bm{a}=(\bm{G}^T \bm{G})^{-1}\bm{G}^T \bm{y}$$
 	$$\underbrace{\underbrace{\bm{G}^T}_{(m+1)\times(N+1)} \cdot \underbrace{\bm{G}}_{(N+1)\times(m+1)}}_{(m+1)\times(m+1)}\cdot
@@ -95,7 +95,7 @@ $\bm U$ ($(N+1) \times (N+1)$) und $\bm V$ ($(m+1) \times (m+1)$) sind orthogona
 Matrizen (d.h. u.a. $\bm U^T=\bm U^{-1}$).\\
 
 Die Zerlegung an sich wird hier nicht weiter ausgeführt, diese kann anderswo nachgeschlagen werden.
-SVD kann gebraucht werden, um Gleichungssystem zu lösen (wie hier), um Eigenvektoren und Eigenwerte 
+SVD kann gebraucht werden, um Gleichungssystem zu lösen (wie hier), um Eigenvektoren und Eigenwerte
 sowie die Inverse zu berechnen.
 
 Aus $Ga|=y|$ wird $UDV^T a|=y|$. Dies lässt sich auflösen zu
@@ -104,10 +104,10 @@ Aus $Ga|=y|$ wird $UDV^T a|=y|$. Dies lässt sich auflösen zu
 \]
 
 \subsubsection{Monomiale} \label{sssec:ls_monomiale}
-Mit 
-$g = a_0 \underbrace{1}_{g_0} + a_1 \underbrace{x}_{g_1} + a_2 \underbrace{x^2}_{g_2} +\ldots + a_m \underbrace{x^m}_{g_2}$ 
+Mit
+$g = a_0 \underbrace{1}_{g_0} + a_1 \underbrace{x}_{g_1} + a_2 \underbrace{x^2}_{g_2} +\ldots + a_m \underbrace{x^m}_{g_2}$
 wird die Designmatrix zu:
-\[G \underbrace{=}_{\text{When Monomials}} 
+\[G \underbrace{=}_{\text{When Monomials}}
 \begin{bmatrix}
   1 & x_0 & x_0^2  & \ldots & x_0^m\\
   1 & x_1 & x_1^2  & \ldots & x_1^m\\
@@ -117,13 +117,13 @@ wird die Designmatrix zu:
 
 
 \subsubsection{Gleichförmige Argumente\quad (Orthogonalitäts-Eigenschaften)} \label{sssec:ls_orthogonal}
-Mit gleichförmigen Elementen $x_i - x_j = (j-i) h$ für alle $i,j$ $\rightarrow$ $\{x_0...x_N\} = \{x_0 + t \cdot h\}_{t=0...N}$ und \textbf{orthogonalen Polynomen} kann 
-$G G^T$ diagonalisiert und so die Gleichungen rechnerisch einfacher gelöst werden. 
+Mit gleichförmigen Elementen $x_i - x_j = (j-i) h$ für alle $i,j$ $\rightarrow$ $\{x_0...x_N\} = \{x_0 + t \cdot h\}_{t=0...N}$ und \textbf{orthogonalen Polynomen} kann
+$G G^T$ diagonalisiert und so die Gleichungen rechnerisch einfacher gelöst werden.
 
-$$\boxed{p_{k,N}(t) = \sum_{i=0}^k (-1)^i \binom{k}{i} \binom{k+i}{i} \frac{t^{(i)}}{N^{(i)}}= 
+$$\boxed{p_{k,N}(t) = \sum_{i=0}^k (-1)^i \binom{k}{i} \binom{k+i}{i} \frac{t^{(i)}}{N^{(i)}}=
 1+\sum_{i=1}^k (-1)^i \binom{k}{i} \binom{k+i}{i} \frac{t(t-1)(t-2)\ldots(t-i+1)}{N(N-1)(N-2)\ldots(N-i+1)} \qquad (k = 1,\ldots,N)}$$
 mit $t=\frac{x-x_0}{h} \qquad \binom{k}{i}=\frac{k!}{i!(k-i)!}=nCr(k,i)$\\
-$p_{k,N}$ kann jetzt als $g_{k}$ in die Designmatrix eingesetzt werden und das Produkt $G^T G$ wird 
+$p_{k,N}$ kann jetzt als $g_{k}$ in die Designmatrix eingesetzt werden und das Produkt $G^T G$ wird
 zu einer $(m+1)\times(m+1)$ Diagonalmatrix. Schlussendlich kann $a$ über die bekannte Formel
 $G^T G a = G^T y$ berechnet werden.\\
 
@@ -160,7 +160,7 @@ $$
 \textbf{Idee}: Approximation eines kontinuierlichen Polynoms durch Chebyshev-Polynome.
 
 \textbf{Definition}\\
-Chebyshev Polynome sind definiert als $\boxed{T_n(x) = \cos(n \arccos(x))}$ mit $(n = 0,1,\ldots)$ und $(-1 \leq x \leq 1)$. Dieses 
+Chebyshev Polynome sind definiert als $\boxed{T_n(x) = \cos(n \arccos(x))}$ mit $(n = 0,1,\ldots)$ und $(-1 \leq x \leq 1)$. Dieses
 Polynom bewirkt eine Häufung der Messwerte in den Randbereichen. Die
 ersten paar Polynome $T_n$ sowie deren Umformungen nach $x$:\\
 \begin{tabular}{ll}
@@ -185,11 +185,11 @@ mit Initialbedingungen $T_1(x)=x,\;T_0(x)=1$ berechnet werden.\\
 
 \begin{minipage}{9cm}
   \textbf{Rezept}\\
-  Chebyshev Polynome können nur benutzt werden, wenn \textbf{$x$ mit Chebyshev-Abständen} 
+  Chebyshev Polynome können nur benutzt werden, wenn \textbf{$x$ mit Chebyshev-Abständen}
   $x_i=\cos(\frac{2i+1}{2n}\pi)\;(i=0,1,\ldots,n-1)$ und nicht
   mit gleichverteilten Abständen gewonnen wurden.
-  
-  Ziel: $y(t) = p_N(t)$ (Polynom, definiert in $[a,b]$) mit Chebyshev-Polynomen des Grades 
+
+  Ziel: $y(t) = p_N(t)$ (Polynom, definiert in $[a,b]$) mit Chebyshev-Polynomen des Grades
   $m$ approximieren.
   \begin{enumerate}
     \item $y(t)$ auf das Standardintervall $[-1,1]$ normieren (affine Transformation)
@@ -209,7 +209,7 @@ mit Initialbedingungen $T_1(x)=x,\;T_0(x)=1$ berechnet werden.\\
   \begin{enumerate}
   	\item Transformation mit $t = \frac{x+1}{2}$:\\
   	  $y(x) = \left( \frac{x+1}{2} \right)^3 = \frac18 (x^3 + 3x^2 + 3x + 1)$
-  	\item Mit Tabelle erweitern:\\ 
+  	\item Mit Tabelle erweitern:\\
   	$y(x) = \frac18 \left( \frac{T_3(x) + 3 T_1(x)}{4} + 3 \frac{T_2(x) + T_0}{2} + 3T_1(x) + T_0(x) \right)$\\
   	$=\frac{1}{32}T_3(x) + \frac{3}{16}T_2(x) + \frac{15}{32} T_1(x) + \frac{5}{16}T_0(x)$
   	\item Kürzen auf Grad $m=2$:\\
@@ -226,7 +226,7 @@ mit Initialbedingungen $T_1(x)=x,\;T_0(x)=1$ berechnet werden.\\
 \newpage
 
 Die \textbf{Designmatrix} sieht so aus:
-$$G \underbrace{=}_{\text{When Chebyshev}} 
+$$G \underbrace{=}_{\text{When Chebyshev}}
 \begin{bmatrix}
   T_0(x_0) = 1 & T_1(x_0) = x_0 & \ldots & T_m(x_0) \\
   T_0(x_1) = 1 & T_1(x_1) = x_1 & \ldots & T_m(x_1)\\
@@ -235,7 +235,7 @@ $$G \underbrace{=}_{\text{When Chebyshev}}
 \end{bmatrix}_{N \times m}$$
 
 Damit wird $G^T G$ zu:
-$$G^T G \underbrace{=}_{\text{When Chebyshev}} 
+$$G^T G \underbrace{=}_{\text{When Chebyshev}}
 \begin{bmatrix}
   N+1 & 0 & \ldots & 0 \\
   0   & \frac{N+1}{2} & \ldots & 0\\
@@ -245,7 +245,7 @@ $$G^T G \underbrace{=}_{\text{When Chebyshev}}
 
 und $(G^T G)^{-1} G^T$ zu:
 
-$$(G^T G)^{-1} G^T \underbrace{=}_{\text{When Chebyshev}} 
+$$(G^T G)^{-1} G^T \underbrace{=}_{\text{When Chebyshev}}
 \begin{bmatrix}
   \frac{1}{N+1} T_0(x_0) = \frac{1}{N+1} & \frac{1}{N+1} T_0(x_1) = \frac{1}{N+1} & \ldots & \frac{1}{N+1} T_0(x_N) = \frac{1}{N+1} \\
   \frac{2}{N+1} T_1(x_0) = \frac{2}{N+1} x_0 & \frac{2}{N+1} T_1(x_1) = \frac{2}{N+1} x_1 & \ldots & \frac{2}{N+1} T_1(x_N) = \frac{2}{N+1}x_N\\
@@ -258,7 +258,7 @@ Folgt aus $a=(G^T G)^{-1} G^T y$ für $x_i=\cos(\frac{2i+1}{2(N+1)}\pi)\;(i=0,1,
 $$p(x) = \sum_{j=0}^m a_j T_j(x) \quad \text{wobei} \quad
 a_j = \begin{cases}
   \frac{1}{N+1} \sum_{i=0}^N y(x_i) & j = 0\\
-  \frac{2}{N+1} \sum_{i=0}^N T_j(x_i) y(x_i) & j > 0 
+  \frac{2}{N+1} \sum_{i=0}^N T_j(x_i) y(x_i) & j > 0
 \end{cases}$$
 
 \subsubsection{Kontinuierliche Least-Squares}
@@ -274,7 +274,7 @@ S: zu minimierende Fehlerfunktion, w: Gewicht mit  ($-1\leq x \leq1$)
 $$p(x) = \sum_{j=0}^m a_j T_j(x) \quad \text{wobei} \quad
 a_j = \begin{cases}
   \frac{1}{\pi} \int_{-1}^1 \frac{y(x)}{\sqrt{1-x^2}} dx & j = 0\\
-  \frac{2}{\pi} \int_{-1}^1 \frac{y(x) T_j(x)}{\sqrt{1-x^2}} dx & j > 0 
+  \frac{2}{\pi} \int_{-1}^1 \frac{y(x) T_j(x)}{\sqrt{1-x^2}} dx & j > 0
 \end{cases}$$
 
 \textbf{Kontinuierliche Least-Squares Legendre Approximtion:}\\
@@ -286,6 +286,9 @@ Legendre Polynome:
 \]
 \[
 	  P_3(x) = \frac{1}{2}(5x^3 - 3x) \qquad P_4(x) = \frac{1}{8}(35x^4-30x^2+3) \qquad P_5(x) = \frac{1}{8}(63x^5-70x^3+15x)
+\]
+\[
+	  1 = P_0(x)  \quad x = P_1(x) \quad x^2 = \frac{2P_2(x) + P_0(x)}{3} \quad x^3 = \frac{2P_3(x)+ 3 P_1(x)}{5} \quad x^4 = \frac{8P_4(x) + 20 P_2(x) + 7 P_0(x)}{35} 
 \]
 
 Koeffizenten:
@@ -318,7 +321,6 @@ Die Legendre $P$-Polynome werden durch die Rodriguez' Formel bestimmt
     P_n(x) = \frac{1}{2^n n!} \cdot \frac{d^n}{dx^n} \left( x^2-1 \right)^n
 \]
 \[
-    P_0(x) = 1 \qquad P_1(x) = x \qquad P_2(x) = \frac{1}{2}(3x^2-1) \qquad 
+    P_0(x) = 1 \qquad P_1(x) = x \qquad P_2(x) = \frac{1}{2}(3x^2-1) \qquad
     P_3(x) = \frac{1}{2}(5x^3-3x) \quad P_4(x) = \frac{1}{8}(35x^4-30x^2+3)
 \]
-
