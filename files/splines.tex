@@ -1,7 +1,7 @@
 \section{Spline-Interpolation}
 
 \begin{minipage}[c]{14.5cm}
-Die Idee der Spline-Interpolation ist, die Daten nicht mit einem Polynom hohen Grades zu interpolieren, sondern mit mehreren Polynomen tiefen Grades. Daduch kann die Tendenz  zum Schwingen von Polynomen hohen Grades umgangen werden. Bei den "Bruchstellen", den Übergängen von einem Patch zum nächsten, müssen die Ableitungen der benachbarten Patches bis zu einem vorgegeben Ableitung übereinstimmten.
+Die Idee der Spline-Interpolation ist, die Daten nicht mit einem Polynom hohen Grades zu interpolieren, sondern mit mehreren Polynomen tiefen Grades. Daduch kann die Tendenz  zum Schwingen von Polynomen hohen Grades umgangen werden. Bei den "Bruchstellen", den Übergängen von einem Patch zum nächsten, müssen die Ableitungen der benachbarten Patches bis zu einer vorgegeben Ableitung übereinstimmten.
 \end{minipage}
 \hfill
 \begin{minipage}[c]{4cm}
@@ -32,7 +32,7 @@ $d-1$ Ableitungen pro innerem Punkt $(n-1)(d-1)$ ergibt total ($(n(d+1)-(d-1))$)
 
 \paragraph{Zusatzbedingungen}
 
-Vergleicht man Freiheitsgrade und Bedinungen, sind $d-1$ Bedingungen zu wählen. Beim \em natural 
+Vergleicht man Freiheitsgrade und Bedingungen, sind $d-1$ Bedingungen zu wählen. Beim \em natural 
 spline \em werden dazu die zweiten Ableitungen auf 0 gesetzt; beim \em clamped splines \em werden
 die 1. Ableitungen vorgegeben.
 
@@ -63,7 +63,7 @@ Gebraucht wird auch (Patch-Breite) $h_i = x_{i+1} - x_i = \Delta x_i$
            %\item $d_{n-1} = \frac{y_n' - b_{n-1} - 2c_{n-1}h_{n-1}}{3h_{n-1}^2}$ (am Schluss zu berechnen)
          \end{enumerate}
     \end{itemize}
-  \item $b_{i-1} = \frac{a_i - a_{i-1}}{h_{i-1}} - \frac{2 c_{i-1} + c_i}{3} h_{i-1} \qquad (i=1, \ldots n-1)$
+  \item $b_{i-1} = \frac{a_i - a_{i-1}}{h_{i-1}} - \frac{2 c_{i-1} + c_i}{3} h_{i-1} \qquad (i=1, \ldots, n-1)$
   \item $b_{n-1} = \frac{y_n - a_{n-1}}{h_{n-1}} - c_{n-1} h_{n-1} - d_{n-1}h_{n-1}^2=\frac{y_n-y_{n-1}}{h_{n-1}}-\frac 23 c_{n-1}h_{n-1}$
   \item $d_{i-1} = \frac{c_i - c_{i-1}}{3 h_{i-1}} \qquad (i=1, \ldots n-1)$
   \item Clamped splining: $d_{n-1} = \frac{y_n' - b_{n-1} - 2c_{n-1}h_{n-1}}{3h_{n-1}^2}$ \hspace{1cm} Natural Splining: $d_{n-1} = -\frac{c_{n-1}}{3h_{n-1}}$
