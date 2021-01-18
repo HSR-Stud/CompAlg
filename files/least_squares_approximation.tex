@@ -315,3 +315,19 @@ Die Basen werden mittel Tensorenprodukt aus Uni-Variaten Basen berechenet (Alle 
     \{ 1,x,y, \; x^2,2xy,x^2, \; x^3,3x^2y,3xy^2,y^3, \; x^4,4x^3y,6x^2y^2,4xy^2,y^4\} \\
 \end{align*}
 
+\subsubsection{Matrix Condition Number}
+Gegeben sei ein Lineares Gleichungssystem der Form $Ax=b$ mit der Lösung $x = A^{-1} b$.
+Die Condition Number $\kappa (A)$ misst den maximalen relativen Fehler der Lösung $x$ in Bezug auf den relativen Fehler der rechten Seite $b$:
+\[
+  \kappa(A) = \begin{cases}
+    \max (\frac{||\Delta x||/||x||}{||\Delta b|| / ||b||} \qquad b \neq 0, \Delta b \neq 0, Ax = b & \text{if the matrix } A \text{  is regular }\\
+    \infty & \text{otherwise}
+  \end{cases}
+\]
+wobei $||\ldots||$ für eine Vektornorm, normalerweise die Euklidsche Norm $||\ldots||_2$ oder die maximale Norm $||\ldots||_\infty$, steht.
+
+Für eine reguläre Matrix $A$ und die Euklidsche Norm $||\dots||_2$:
+\begin{itemize}
+  \item $\kappa (A) = \frac{|\sigma_{max}|}{|\sigma_{min}|}, \qquad |\sigma_{max}| = \text{ absoluter maximaler Singulärwert und } |\sigma_{min}| = \text{absoluter minimaler Singulärwert von A}$
+  \item Falls A zusätzlich eine Normalmatrix ist: $\kappa (A) = \frac{|\lambda_{max}|}{|\lambda_{min}|}, \qquad |\lambda_{max}| = \text{ absoluter maximaler Eigenwert und } |\lambda_{min}| = \text{absoluter minimaler Eigenwert}$
+\end{itemize}
