@@ -277,12 +277,12 @@ a_j = \begin{cases}
   \frac{2}{\pi} \int_{-1}^1 \frac{y(x) T_j(x)}{\sqrt{1-x^2}} dx & j > 0
 \end{cases}$$
 
-\textbf{Kontinuierliche Least-Squares Legendre Approximtion:}\\
+\textbf{Kontinuierliche Least-Squares Legendre Approximation:}\\
 Hier bei wird das Gewicht $w(t) = 1$ gesetzt.\\
 
 Legendre Polynome:
 \[
-	P_n(x) = \frac{1}{2^n n!} \cdot \frac{\mathrm{d}^n}{\mathrm{d}x^n}(x^2-1)^2 \qquad \qquad P_0(x) = 1 \qquad P_1(x) = x \qquad P_2(x) = \frac{1}{2}(3x^2-1)
+  P_n(x) = \frac{1}{2^n n!} \cdot \frac{\mathrm{d}^n}{\mathrm{d}x^n}(x^2-1)^n \qquad \qquad P_0(x) = 1 \qquad P_1(x) = x \qquad P_2(x) = \frac{1}{2}(3x^2-1)
 \]
 \[
 	  P_3(x) = \frac{1}{2}(5x^3 - 3x) \qquad P_4(x) = \frac{1}{8}(35x^4-30x^2+3) \qquad P_5(x) = \frac{1}{8}(63x^5-70x^3+15x)
@@ -315,12 +315,22 @@ Die Basen werden mittel Tensorenprodukt aus Uni-Variaten Basen berechenet (Alle 
     \{ 1,x,y, \; x^2,2xy,x^2, \; x^3,3x^2y,3xy^2,y^3, \; x^4,4x^3y,6x^2y^2,4xy^2,y^4\} \\
 \end{align*}
 
-\subsection{Legendre Polynome}
-Die Legendre $P$-Polynome werden durch die Rodriguez' Formel bestimmt
+\subsubsection{Matrix Condition Number}
+Gegeben sei ein Lineares Gleichungssystem der Form $Ax=b$ mit der Lösung $x = A^{-1} b$.
+Die Condition Number $\kappa (A)$ misst den maximalen relativen Fehler der Lösung $x$ in Bezug auf den relativen Fehler der rechten Seite $b$:
 \[
-    P_n(x) = \frac{1}{2^n n!} \cdot \frac{d^n}{dx^n} \left( x^2-1 \right)^n
+  \kappa(A) = \begin{cases}
+    \max (\frac{||\Delta x||/||x||}{||\Delta b|| / ||b||} \qquad b \neq 0, \Delta b \neq 0, Ax = b & \text{if the matrix } A \text{  is regular }\\
+    \infty & \text{otherwise}
+  \end{cases}
 \]
-\[
-    P_0(x) = 1 \qquad P_1(x) = x \qquad P_2(x) = \frac{1}{2}(3x^2-1) \qquad
-    P_3(x) = \frac{1}{2}(5x^3-3x) \quad P_4(x) = \frac{1}{8}(35x^4-30x^2+3)
-\]
+wobei $||\ldots||$ für eine Vektornorm, normalerweise die Euklidsche Norm $||\ldots||_2$ oder die maximale Norm $||\ldots||_\infty$, steht.
+
+Wenn $\kappa (A)$ relativ klein ist, wird das System/die Matrix ''well-conditioned'' genannt, ansonsten ist sie ''ill-conditioned''.
+
+
+Für eine reguläre Matrix $A$ und die Euklidsche Norm $||\dots||_2$:
+\begin{itemize}
+  \item $\kappa (A) = \frac{|\sigma_{max}|}{|\sigma_{min}|}, \qquad |\sigma_{max}| = \text{ absoluter maximaler Singulärwert und } |\sigma_{min}| = \text{absoluter minimaler Singulärwert von A}$
+  \item Falls A zusätzlich eine Normalmatrix ist: $\kappa (A) = \frac{|\lambda_{max}|}{|\lambda_{min}|}, \qquad |\lambda_{max}| = \text{ absoluter maximaler Eigenwert und } |\lambda_{min}| = \text{absoluter minimaler Eigenwert}$
+\end{itemize}
