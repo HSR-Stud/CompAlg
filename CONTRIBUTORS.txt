@@ -4,3 +4,5 @@ Sven Eicher
 Gian Danuser
 Hannes Badertscher
 Hannes Diethelm
+Noah Kälin
+Michael Schmid
